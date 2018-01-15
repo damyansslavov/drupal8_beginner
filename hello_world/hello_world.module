@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * A basic Drupal 8 Hello World Module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_permission().
+ */
+function hello_world_permission() {
+  $permissions = array(
+    'view hello world' => array(
+      'title' => t('View Hello World module'),
+      'description' => t('View the Hello World module page.'),
+    ),
+  );
+ return $permissions;
+}
+/**
+* Implements hook_theme() with function + file.
+*/
+/*function hello_world_theme() {
+  return array(
+   'hello_world_primary_page' => array(
+     'function' => 'theme_hello_world_primary_page',
+     'variables' => array(
+	   'items' => NULL,
+     ),
+     'file' => 'hello_world.theme.inc',
+   ),
+  ); 
+}*/
+/**
+* Implements hook_theme() with template which includes
+*  template_preprocess_hello_world_primary_page function call
+*  hello_world_primary_page.html.twig file call
+*/
+function hello_world_theme() {
+  return array(
+    'hello_world_primary_page' => array(
+      'template' => 'hello_world_primary_page',
+      'variables' => array(
+        'items' => array(),
+      ),
+    ),
+  );
+}
+
+/**
+ * Preprocess variables for the primary hello world page.
+ *
+ * @param array $variables
+ *  An associative array containing:
+ *  - items: Array of participant names. 
+ */
+function template_preprocess_hello_world_primary_page(&$variables) {
+	error_log('jere');
+/* In the preprocess function we establish values in the $variables array which we'll be able to use within the hello_world_primary_page. */
+  if (isset($variables['items'])) {
+    $results = db_query('SELECT * from hello_world limit ' . $variables['items']);
+  }
+  else {
+    $results = db_query('SELECT * from hello_world');
+  }
+  $variables['results'] = $results;
+  $variables['test_var'] = 'We can set as many variables in the preprocess function as we like, this variable called test_var simply passes this text itself to the theme template';
+}

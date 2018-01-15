@@ -1,0 +1,14 @@
+hello_world_settings:
+  path:  '/hello/world'
+  defaults:
+    _controller:  '\Drupal\hello_world\Controller\HelloWorldController::myCallbackMethod'
+    _title: 'Hello World'
+  requirements:
+    _permission: 'view hello world'
+first.form:
+  path:  '/first/form'
+  defaults:
+    _title: 'First Form'
+    _form: '\Drupal\hello_world\Form\FirstForm'    
+  requirements:
+    _permission: 'access content'	
