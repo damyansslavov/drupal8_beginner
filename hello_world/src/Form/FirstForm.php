@@ -106,7 +106,7 @@ class FirstForm extends FormBase {
     $node->save();
 	$url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $node->id()]);	
 	drupal_set_message('Your new node has been created and can be viewed by clicking the following url:');
-	drupal_set_message(\Drupal::l(t('Click here to view your node'), $url)); 
+	drupal_set_message(\Drupal::l(t('Click here to view your node'), $url));  
   }
 
 }
